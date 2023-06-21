@@ -5,11 +5,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.meusgastoscaldas.domain.dto.usuario.UsuarioRequestDTO;
 import com.example.meusgastoscaldas.domain.dto.usuario.UsuarioResponseDTO;
+import com.example.meusgastoscaldas.domain.exception.ResourceNotFoundException;
 import com.example.meusgastoscaldas.domain.model.Usuario;
 import com.example.meusgastoscaldas.domain.repository.UsuarioRepository;
 
@@ -31,7 +33,7 @@ private ModelMapper mapper;
     public UsuarioResponseDTO obterPorId(Long id) {
         Optional optUsuario = usuarioRepository.findById(id);
         if(optUsuario.isEmpty()){
-            //lançar exceção
+            throw new ResourceNotFoundException("não foi possível encontrar o usuário com o id: " + id);
         }
         return mapper.map(optUsuario.get(), UsuarioResponseDTO.class);
     }
