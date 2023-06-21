@@ -1,6 +1,7 @@
 package com.example.meusgastoscaldas.domain.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.meusgastoscaldas.domain.dto.usuario.UsuarioRequestDTO;
 import com.example.meusgastoscaldas.domain.dto.usuario.UsuarioResponseDTO;
+import com.example.meusgastoscaldas.domain.model.Usuario;
 import com.example.meusgastoscaldas.domain.repository.UsuarioRepository;
 
 @Service
@@ -20,8 +22,8 @@ private ModelMapper mapper;
 
     @Override
     public List<UsuarioResponseDTO> obterTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterTodos'");
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarios.stream().map(usuario -> mapper.map(usuario, UsuarioResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
