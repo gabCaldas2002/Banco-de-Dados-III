@@ -1,6 +1,7 @@
 package com.example.meusgastoscaldas.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -28,8 +29,11 @@ private ModelMapper mapper;
 
     @Override
     public UsuarioResponseDTO obterPorId(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterPorId'");
+        Optional optUsuario = usuarioRepository.findById(id);
+        if(optUsuario.isEmpty()){
+            //lançar exceção
+        }
+        return mapper.map(optUsuario.get(), UsuarioResponseDTO.class);
     }
 
     @Override
