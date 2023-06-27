@@ -30,7 +30,7 @@ private ModelMapper mapper;
 
     @Override
     public UsuarioResponseDTO obterPorId(Long id) {
-        Optional optUsuario = usuarioRepository.findById(id);
+        Optional<Usuario> optUsuario = usuarioRepository.findById(id);
         if(optUsuario.isEmpty()){
             throw new ResourceNotFoundException("não foi possível encontrar o usuário com o id: " + id);
         }
@@ -39,20 +39,25 @@ private ModelMapper mapper;
 
     @Override
     public UsuarioResponseDTO cadastrar(Long id, UsuarioRequestDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrar'");
+        Usuario usuario = mapper.map(dto, Usuario.class);
+        //encriptar a senha
+        usuario = usuarioRepository.save(usuario);
+        return mapper.map(usuario, UsuarioResponseDTO.class);
     }
 
     @Override
     public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+        obterPorId(id);
+        Usuario usuario = mapper.map(dto, Usuario.class);
+        usuario.setId(id);
+        usuario = usuarioRepository.save(usuario);
+        return mapper.map(usuario, UsuarioResponseDTO.class);
     }
 
     @Override
     public void deletar(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+        obterPorId(id);
+        usuarioRepository.deleteById(id);
     }
     
 }
