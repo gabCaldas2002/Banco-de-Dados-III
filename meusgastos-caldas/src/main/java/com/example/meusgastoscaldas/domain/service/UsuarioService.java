@@ -1,5 +1,6 @@
 package com.example.meusgastoscaldas.domain.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.meusgastoscaldas.domain.dto.usuario.UsuarioRequestDTO;
 import com.example.meusgastoscaldas.domain.dto.usuario.UsuarioResponseDTO;
+import com.example.meusgastoscaldas.domain.exception.ResourceBadRequestException;
 import com.example.meusgastoscaldas.domain.exception.ResourceNotFoundException;
 import com.example.meusgastoscaldas.domain.model.Usuario;
 import com.example.meusgastoscaldas.domain.repository.UsuarioRepository;
@@ -38,8 +40,16 @@ private ModelMapper mapper;
     }
 
     @Override
-    public UsuarioResponseDTO cadastrar(Long id, UsuarioRequestDTO dto) {
+    public UsuarioResponseDTO cadastrar(UsuarioRequestDTO dto) {
+        if(dto.getEmail() == null || dto.getSenha() == null){
+            throw new ResourceBadRequestException("Email e senha são obrigatórios");
+        }
+        Optional<Usuario> optUsuario = usuarioRepository.findByEmail(dto.getEmail());
+        if(optUsuario.isPresent()){
+            throw new ResourceBadRequestException("Já existe um usuário cadastrado com esse email" + dto.getEmail());
+        }
         Usuario usuario = mapper.map(dto, Usuario.class);
+        usuario.setDataCadastro(new Date());
         //encriptar a senha
         usuario = usuarioRepository.save(usuario);
         return mapper.map(usuario, UsuarioResponseDTO.class);
@@ -48,6 +58,9 @@ private ModelMapper mapper;
     @Override
     public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto) {
         obterPorId(id);
+        if(dto.getEmail() == null || dto.getSenha() == null){
+            throw new ResourceBadRequestException("Email e senha são obrigatórios");
+        }
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.setId(id);
         usuario = usuarioRepository.save(usuario);
@@ -56,8 +69,18 @@ private ModelMapper mapper;
 
     @Override
     public void deletar(Long id) {
-        obterPorId(id);
-        usuarioRepository.deleteById(id);
+        //apagar um usuario da base
+        //obterPorId(id);
+        //usuarioRepository.deleteById(id);
+
+        //inativar usuario
+        Optional<Usuario> optUsuario = usuarioRepository.findById(id);
+        if(optUsuario.isEmpty()){
+            throw new ResourceNotFoundException("não foi possível encontrar o usuário com o id: " + id);
+        }
+        Usuario usuario = optUsuario.get();
+        usuario.setDataInativacao(new Date());
+        usuarioRepository.save(usuario);
     }
     
 }
