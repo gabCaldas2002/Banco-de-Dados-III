@@ -3,6 +3,8 @@ package com.example.meusgastoscaldas.domain.dto.usuario;
 import java.util.Date;
 
 public class UsuarioResponseDTO {
+    private Long id;
+    
     private String nome;
     private String email;
     private String senha;
@@ -10,6 +12,12 @@ public class UsuarioResponseDTO {
     private Date dataCadastro;
     private Date dataInativacao;
     
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getNome() {
         return nome;
     }
