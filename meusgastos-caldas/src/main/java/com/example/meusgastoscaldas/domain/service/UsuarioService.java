@@ -57,12 +57,13 @@ private ModelMapper mapper;
 
     @Override
     public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto) {
-        obterPorId(id);
+        UsuarioResponseDTO usuarioBanco = obterPorId(id);
         if(dto.getEmail() == null || dto.getSenha() == null){
             throw new ResourceBadRequestException("Email e senha são obrigatórios");
         }
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.setId(id);
+        usuario.setDataCadastro(usuarioBanco.getDataCadastro());
         usuario = usuarioRepository.save(usuario);
         return mapper.map(usuario, UsuarioResponseDTO.class);
     }
