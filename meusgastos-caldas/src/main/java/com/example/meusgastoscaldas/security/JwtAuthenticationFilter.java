@@ -66,6 +66,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.getWriter().write(new Gson().toJson(loginResponseDTO));
     }
 
+    @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws java.io.IOException{
         String dataHora = ConversorData.converterDataParaDataHora(new Date());
         ErroResposta erro = new ErroResposta(dataHora, 401, "Unauthorized", failed.getMessage());
