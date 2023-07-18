@@ -1,11 +1,11 @@
 package com.example.meusgastoscaldas.domain.dto.centrodecusto;
 
 public class CentroDeCustoRequestDTO {
-    private long id;
+    private Long id;
     private String descricao;
     private String observacao;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
     public void setId(Long id) {
