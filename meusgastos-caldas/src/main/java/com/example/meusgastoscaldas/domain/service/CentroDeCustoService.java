@@ -51,13 +51,18 @@ public class CentroDeCustoService implements ICRUDService<CentroDeCustoRequestDT
 
     @Override
     public CentroDeCustoResponseDTO atualizar(Long id, CentroDeCustoRequestDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+        obterPorId(id);
+        CentroDeCusto centroDeCusto = mapper.map(dto, CentroDeCusto.class);
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        centroDeCusto.setUsuario(usuario);
+        centroDeCusto.setId(id);
+        centroDeCusto = centroDeCustoRepository.save(centroDeCusto);
+        return mapper.map(centroDeCusto, CentroDeCustoResponseDTO.class);
     }
 
     @Override
     public void deletar(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+        obterPorId(id);
+        centroDeCustoRepository.deleteById(id);
     }
 }
