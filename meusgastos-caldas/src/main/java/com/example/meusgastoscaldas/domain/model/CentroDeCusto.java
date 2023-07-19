@@ -20,7 +20,7 @@ public class CentroDeCusto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCentroDeCusto")
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String descricao;
     @Column(columnDefinition = "TEXT")

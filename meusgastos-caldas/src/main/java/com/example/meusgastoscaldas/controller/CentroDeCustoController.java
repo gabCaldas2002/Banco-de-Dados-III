@@ -43,7 +43,7 @@ public class CentroDeCustoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CentroDeCustoResponseDTO> atualizar(@PathVariable Long id, @RequestBody CentroDeCustoResponseDTO dto){
+    public ResponseEntity<CentroDeCustoResponseDTO> atualizar(@PathVariable Long id, @RequestBody CentroDeCustoRequestDTO dto){
         CentroDeCustoResponseDTO responseDTO = centroDeCustoService.atualizar(id, dto);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
         
@@ -51,7 +51,8 @@ public class CentroDeCustoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id){
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT)
+        centroDeCustoService.deletar(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
 }

@@ -36,11 +36,12 @@ public class CentroDeCustoService implements ICRUDService<CentroDeCustoRequestDT
         if(optCentroDeCusto.isEmpty()){
             throw new ResourceNotFoundException("Não foi possível encontrar o centro de custo com o id: " + id);
         }
-        return mapper.map(optCentroDeCusto, CentroDeCustoResponseDTO.class);
+        return mapper.map(optCentroDeCusto.get(), CentroDeCustoResponseDTO.class);
     }
 
     @Override
     public CentroDeCustoResponseDTO cadastrar(CentroDeCustoRequestDTO dto) {
+        System.out.println(dto.getId());
         CentroDeCusto centroDeCusto = mapper.map(dto, CentroDeCusto.class);
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         centroDeCusto.setUsuario(usuario);
