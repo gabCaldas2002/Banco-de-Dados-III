@@ -1,6 +1,7 @@
 package com.example.meusgastoscaldas.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.meusgastoscaldas.domain.dto.titulos.TituloRequestDTO;
 import com.example.meusgastoscaldas.domain.dto.titulos.TituloResponseDTO;
+import com.example.meusgastoscaldas.domain.exception.ResourceNotFoundException;
 import com.example.meusgastoscaldas.domain.model.Titulo;
 import com.example.meusgastoscaldas.domain.model.Usuario;
 import com.example.meusgastoscaldas.domain.repository.TituloRepository;
@@ -30,8 +32,11 @@ public class TituloService implements ICRUDService<TituloRequestDTO, TituloRespo
 
     @Override
     public TituloResponseDTO obterPorId(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterPorId'");
+        Optional<Titulo> optTitulo = tituloRepository.findById(id);
+        if(optTitulo.isEmpty()){
+            throw new ResourceNotFoundException("Não foi possível encontrar o título com o id: " + id);
+        }
+        return mapper.map(optTitulo, TituloResponseDTO.class);
     }
 
     @Override
