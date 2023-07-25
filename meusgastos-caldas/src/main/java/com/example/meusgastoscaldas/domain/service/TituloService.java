@@ -1,5 +1,6 @@
 package com.example.meusgastoscaldas.domain.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,8 +43,14 @@ public class TituloService implements ICRUDService<TituloRequestDTO, TituloRespo
 
     @Override
     public TituloResponseDTO cadastrar(TituloRequestDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrar'");
+        validarTitulo(dto);
+        Titulo titulo = mapper.map(dto, Titulo.class);
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        titulo.setUsuario(usuario);
+        titulo.setId(null);
+        titulo.setDataCadastro(new Date());
+        titulo = tituloRepository.save(titulo);
+        return mapper.map(titulo, TituloResponseDTO.class);
     }
 
     @Override

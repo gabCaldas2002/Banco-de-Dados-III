@@ -20,7 +20,7 @@ public class Titulo {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name="idTitulo")
-    private long id;
+    private Long id;
     @Column (nullable = false)
     private String descricao;
     @ManyToOne
@@ -42,10 +42,10 @@ public class Titulo {
     private String observacao;
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getDescricao() {
