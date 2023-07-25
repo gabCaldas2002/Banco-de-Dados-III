@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.meusgastoscaldas.domain.dto.titulos.TituloRequestDTO;
 import com.example.meusgastoscaldas.domain.dto.titulos.TituloResponseDTO;
+import com.example.meusgastoscaldas.domain.exception.ResourceBadRequestException;
 import com.example.meusgastoscaldas.domain.exception.ResourceNotFoundException;
 import com.example.meusgastoscaldas.domain.model.Titulo;
 import com.example.meusgastoscaldas.domain.model.Usuario;
@@ -55,6 +56,12 @@ public class TituloService implements ICRUDService<TituloRequestDTO, TituloRespo
     public void deletar(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+    }
+
+    private void validarTitulo(TituloResponseDTO dto){
+        if(dto.getTipo() == null || dto.getDataVencimento() == null || dto.getValor() == null || dto.getDescricao() == null){
+            throw new ResourceBadRequestException("Título inválido - Campos obrigatórios!");
+        }
     }
     
 }
