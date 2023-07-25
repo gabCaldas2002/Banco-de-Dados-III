@@ -55,17 +55,23 @@ public class TituloService implements ICRUDService<TituloRequestDTO, TituloRespo
 
     @Override
     public TituloResponseDTO atualizar(Long id, TituloRequestDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+        obterPorId(id);
+        validarTitulo(dto);
+        Titulo titulo = mapper.map(dto, Titulo.class);
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        titulo.setUsuario(usuario);
+        titulo.setId(id);
+        titulo = tituloRepository.save(titulo);
+        return mapper.map(titulo, TituloResponseDTO.class);
     }
 
     @Override
     public void deletar(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+        obterPorId(id);
+        tituloRepository.deleteById(id);
     }
 
-    private void validarTitulo(TituloResponseDTO dto){
+    private void validarTitulo(TituloRequestDTO dto){
         if(dto.getTipo() == null || dto.getDataVencimento() == null || dto.getValor() == null || dto.getDescricao() == null){
             throw new ResourceBadRequestException("Título inválido - Campos obrigatórios!");
         }
