@@ -38,7 +38,7 @@ public class TituloService implements ICRUDService<TituloRequestDTO, TituloRespo
         if(optTitulo.isEmpty()){
             throw new ResourceNotFoundException("Não foi possível encontrar o título com o id: " + id);
         }
-        return mapper.map(optTitulo, TituloResponseDTO.class);
+        return mapper.map(optTitulo.get(), TituloResponseDTO.class);
     }
 
     @Override
