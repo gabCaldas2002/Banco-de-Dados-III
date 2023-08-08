@@ -71,6 +71,13 @@ public class TituloService implements ICRUDService<TituloRequestDTO, TituloRespo
         tituloRepository.deleteById(id);
     }
 
+    public List<TituloResponseDTO> obterPorDataDeVencimento(String periodoInicial, String periodoFinal){
+        List<Titulo> titulos = tituloRepository.obterFluxoCaixaPorDataVencimento(periodoInicial, periodoFinal);
+        return titulos.stream()
+        .map(titulo -> mapper.map(titulo, TituloResponseDTO.class))
+        .collect(Collectors.toList());
+    }
+
     private void validarTitulo(TituloRequestDTO dto){
         if(dto.getTipo() == null || dto.getDataVencimento() == null || dto.getValor() == null || dto.getDescricao() == null){
             throw new ResourceBadRequestException("Título inválido - Campos obrigatórios!");
