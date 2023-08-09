@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.meusgastos.domain.service.DashboardService;
-import com.example.meusgastos.domain.dto.dashboard.DashboardResponseDTO;
+import com.example.meusgastoscaldas.domain.service.DashboardService;
+import com.example.meusgastoscaldas.domain.dto.dashboard.DashboardResponseDTO;
 
 @CrossOrigin("*")
 @RestController

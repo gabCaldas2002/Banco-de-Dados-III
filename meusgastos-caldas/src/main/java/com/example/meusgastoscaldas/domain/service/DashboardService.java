@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.meusgastos.domain.Enum.ETipoTitulo;
-import com.example.meusgastos.domain.dto.dashboard.DashboardResponseDTO;
-import com.example.meusgastos.domain.dto.titulo.TituloResponseDTO;
+import com.example.meusgastoscaldas.domain.Enum.ETipoTitulo;
+import com.example.meusgastoscaldas.domain.dto.dashboard.DashboardResponseDTO;
+import com.example.meusgastoscaldas.domain.dto.titulos.TituloResponseDTO;
 
 @Service
 public class DashboardService {

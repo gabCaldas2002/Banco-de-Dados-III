@@ -2,7 +2,7 @@ package com.example.meusgastoscaldas.domain.dto.dashboard;
 
 import java.util.List;
 
-import com.example.meusgastos.domain.dto.titulo.TituloResponseDTO;
+import com.example.meusgastoscaldas.domain.dto.titulos.TituloResponseDTO;
 
 public class DashboardResponseDTO {
     private Double totalPagar;
