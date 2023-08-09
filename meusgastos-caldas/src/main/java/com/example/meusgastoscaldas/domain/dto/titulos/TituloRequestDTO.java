@@ -36,10 +36,10 @@ public class TituloRequestDTO {
     public void setTipo(ETipoTitulo tipo) {
         this.tipo = tipo;
     }
-    public List<CentroDeCustoRequestDTO> getCentroDeCustos() {
+    public List<CentroDeCustoRequestDTO> getCentrosDeCustos() {
         return centrosDeCustos;
     }
-    public void setCentroDeCustos(List<CentroDeCustoRequestDTO> centrosDeCustos) {
+    public void setCentrosDeCustos(List<CentroDeCustoRequestDTO> centrosDeCustos) {
         this.centrosDeCustos = centrosDeCustos;
     }
     public Double getValor() {

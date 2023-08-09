@@ -18,10 +18,10 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Titulo {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name="idTitulo")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idTitulo")
     private Long id;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String descricao;
     @ManyToOne
     @JoinColumn(name = "idUsuario")
@@ -29,18 +29,19 @@ public class Titulo {
     private ETipoTitulo tipo;
     @ManyToMany
     @JoinTable(
-        name = "titulo_centrodecusto",
-        joinColumns = @JoinColumn(name = "idTitulo"),
-        inverseJoinColumns = @JoinColumn(name = "idCentroDeCusto")
+        name="titulo_centrodecusto",
+        joinColumns = @JoinColumn(name="idTitulo"),
+        inverseJoinColumns = @JoinColumn(name="idCentroDeCusto")
     )
     private List<CentroDeCusto> centrosDeCustos;
+    @Column(nullable = false)
     private Double valor;
     private Date dataCadastro;
     private Date dataReferencia;
     private Date dataVencimento;
     private Date dataPagamento;
+    @Column(columnDefinition = "TEXT")
     private String observacao;
-
 
     public Long getId() {
         return id;
@@ -69,8 +70,8 @@ public class Titulo {
     public List<CentroDeCusto> getCentrosDeCustos() {
         return centrosDeCustos;
     }
-    public void setCentrosDeCusto(List<CentroDeCusto> centro) {
-        this.centrosDeCustos = centro;
+    public void setCentrosDeCustos(List<CentroDeCusto> centrosDeCustos) {
+        this.centrosDeCustos = centrosDeCustos;
     }
     public Double getValor() {
         return valor;
